@@ -69,6 +69,14 @@ $System_Config['aws_access_key_id'] = '';
 $System_Config['aws_secret_access_key'] = '';
 
 
+#Makise's Extra
+$System_Config['invite_url'] = 'false';  //使用url的方式邀请注册,这个邀请方式和邀请码方式冲突,如果使用请关闭enable_invite_code
+//以下为todo
+$System_Config['invite_back'] = '10';  //返利比例
+$System_Config['open_save'] = 'false'; // 是否开启公共优惠码
+$System_Config['usefull_url'] = 'false';  //是否开启常用站点功能
+$System_Config['live'] = 'false';  //转发直播
+
 #glzjin's time
 
 #功能开关
