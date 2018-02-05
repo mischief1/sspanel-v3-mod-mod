@@ -37,19 +37,7 @@
 								</div>
 							</div>
 						
-							<div class="card">
-								<div class="card-main">
-									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">All-in-One</p>
-										<p>这里为您提供了自动化地配置文件生成，包含了所有 Shadowsocks 服务器的信息，方便您在诸多的服务器中快速添加，快速切换。</p>
-										<p><a href="/downloads/client/ShadowsocksR-win.7z"><i class="icon icon-lg">desktop_windows</i>&nbsp;Windows下载这个</a>，解压，然后下载<a href="/user/getpcconf">这个</a>，放到程序目录下，运行程序，选择一个合适的服务器，更新一下PAC为绕过国内IP，然后开启系统代理即可上网。</p>
-										<p><a href="/downloads/client/ShadowsocksX-NG-1.2.dmg"><i class="icon icon-lg">laptop_mac</i>&nbsp;Mac OS X下载这个</a>，安装，然后下载<a href="/user/getpcconf">这个</a>，放到程序目录下，运行程序，选择一个合适的服务器，更新一下PAC，然后开启系统代理即可上网。或者在节点列表页，点击你想要的节点标题后，下拉至二维码处，然后在ssx图标处右键使用扫描页面二维码导入信息。</p>
-										<p><i class="icon icon-lg">laptop_mac</i>&nbsp;iOS 下载<a href="/link/{$ios_token}">这个</a>，导入到 Surge 中，然后就可以随意切换服务器上网了。</p>
-										<p><a href="/downloads/client/shadowsocksr.apk"><i class="icon icon-lg">android</i>&nbsp;Android下载这个</a>，安装，然后在手机上默认浏览器中点击<a id="android_add" href="{$android_add}">这个</a>，然后点击确定，批量添加完服务器，然后路由选择绕过大陆，右上角开启就可以上网了。</p>
-									</div>
-									
-								</div>
-							</div>
+							
 						
 							<div class="card">
 								<div class="card-main">
@@ -140,7 +128,20 @@
 									
 								</div>
 							</div>
-						
+							<div class="card">
+								<div class="card-main">
+									<div class="card-inner margin-bottom-no">
+										<p class="card-heading">All-in-One</p>
+										<p>这里为您提供了自动化地配置文件生成，包含了所有 Shadowsocks 服务器的信息，方便您在诸多的服务器中快速添加，快速切换。</p>
+										<p><i class="icon icon-lg">desktop_windows</i>&nbsp;<a href="/downloads/shadowsocksr.zip">Windows 下载这个</a>，解压，运行程序，然后您有两种方式导入所有节点<br>(1)下载<a href="/user/getpcconf">这个</a>，然后将这个文件复制到2.0和4.0所在的那个目录，<br>(2)点击<a class="copy-text" data-clipboard-text="{$android_add}">这里</a>，然后右键小飞机 -- 从剪贴板复制地址<br>然后选择一个合适的服务器，更新一下PAC为绕过国内IP，然后开启系统代理即可上网。</p>
+										<p><i class="icon icon-lg">desktop_windows</i>&nbsp;<a href="/downloads/Sockscap64.zip">PC游戏玩家下载这个</a>观看<a href="/video/sockscap.mp4">教程视频</a>进行操作。</p>
+										<p><i class="icon icon-lg">laptop_mac</i>&nbsp;<a href="/downloads/ssr-osx.zip">Mac OS X下载这个</a>，安装，然后下载<a href="/user/getpcconf">这个</a>，运行程序，小飞机上右键 服务器列表 子菜单 的 “导入服务器配置文件...” 导入这个文件，然后选择一个合适的服务器，更新一下PAC，然后开启系统代理即可上网。</p>
+										<p><i class="icon icon-lg">laptop_mac</i>&nbsp;iOS 强烈推荐下载<a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>，然后在 Safari 中点击<a id="android_add" href="{$android_add}">这个</a>，然后点击确定，就可以批量添加节点。</p>										
+										<p><i class="icon icon-lg">android</i>&nbsp;<a href="/downloads/shadowsocksr-release.apk">Android下载 Android 版</a>，安装，然后在手机上默认浏览器中点击<a id="android_add" href="{$android_add}">这个</a>，然后点击确定，批量添加完节点，然后路由选择绕过大陆，右上角开启就可以上网了。</p>
+									</div>
+									
+								</div>
+							</div>
 						
 					
 							<div class="card">
@@ -252,9 +253,20 @@
 <script src="theme/material/js/shake.js/shake.js"></script>
 
 
+<script>
+
+$(function(){
+	new Clipboard('.copy-text');
+});
+
+$(".copy-text").click(function () {
+	$("#result").modal();
+	$("#msg").html("已复制到您的剪贴板，请您继续接下来的操作。");
+});
 
 {if $geetest_html == null}
-<script>
+
+
 window.onload = function() { 
     var myShakeEvent = new Shake({ 
         threshold: 15 
@@ -287,36 +299,31 @@ window.onload = function() {
     } 
 }; 
 
-</script>
 
-
-
-<script>
-    $(document).ready(function () {
-        $("#checkin").click(function () {
-            $.ajax({
-                type: "POST",
-                url: "/user/checkin",
-                dataType: "json",
-                success: function (data) {
-                    $("#checkin-msg").html(data.msg);
-                    $("#checkin-btn").hide();
-					$("#result").modal();
-                    $("#msg").html(data.msg);
-                },
-                error: function (jqXHR) {
-					$("#result").modal();
-                    $("#msg").html("发生错误：" + jqXHR.status);
-                }
-            })
-        })
-    })
+$(document).ready(function () {
+	$("#checkin").click(function () {
+		$.ajax({
+			type: "POST",
+			url: "/user/checkin",
+			dataType: "json",
+			success: function (data) {
+				$("#checkin-msg").html(data.msg);
+				$("#checkin-btn").hide();
+				$("#result").modal();
+				$("#msg").html(data.msg);
+			},
+			error: function (jqXHR) {
+				$("#result").modal();
+				$("#msg").html("发生错误：" + jqXHR.status);
+			}
+		})
+	})
+})
 	
-</script>
+
 {else}
 
 
-<script>
 window.onload = function() { 
     var myShakeEvent = new Shake({ 
         threshold: 15 
@@ -335,57 +342,51 @@ window.onload = function() {
     } 
 }; 
 
-</script>
 
 
+var handlerPopup = function (captchaObj) {
+	c = captchaObj;
+	captchaObj.onSuccess(function () {
+		var validate = captchaObj.getValidate();
+		$.ajax({
+			url: "/user/checkin", // 进行二次验证
+			type: "post",
+			dataType: "json",
+			data: {
+				// 二次验证所需的三个值
+				geetest_challenge: validate.geetest_challenge,
+				geetest_validate: validate.geetest_validate,
+				geetest_seccode: validate.geetest_seccode
+			},
+			success: function (data) {
+				$("#checkin-msg").html(data.msg);
+				$("#checkin-btn").hide();
+				$("#result").modal();
+				$("#msg").html(data.msg);
+			},
+			error: function (jqXHR) {
+				$("#result").modal();
+				$("#msg").html("发生错误：" + jqXHR.status);
+			}
+		});
+	});
+	// 弹出式需要绑定触发验证码弹出按钮
+	captchaObj.bindOn("#checkin");
+	// 将验证码加到id为captcha的元素里
+	captchaObj.appendTo("#popup-captcha");
+	// 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+};
 
-<script>
-
-
-	var handlerPopup = function (captchaObj) {
-		c = captchaObj;
-		captchaObj.onSuccess(function () {
-			var validate = captchaObj.getValidate();
-            $.ajax({
-                url: "/user/checkin", // 进行二次验证
-                type: "post",
-                dataType: "json",
-                data: {
-                    // 二次验证所需的三个值
-                    geetest_challenge: validate.geetest_challenge,
-                    geetest_validate: validate.geetest_validate,
-                    geetest_seccode: validate.geetest_seccode
-                },
-                success: function (data) {
-                    $("#checkin-msg").html(data.msg);
-                    $("#checkin-btn").hide();
-					$("#result").modal();
-                    $("#msg").html(data.msg);
-                },
-                error: function (jqXHR) {
-					$("#result").modal();
-                    $("#msg").html("发生错误：" + jqXHR.status);
-                }
-            });
-        });
-        // 弹出式需要绑定触发验证码弹出按钮
-        captchaObj.bindOn("#checkin");
-        // 将验证码加到id为captcha的元素里
-        captchaObj.appendTo("#popup-captcha");
-        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
-    };
-
-	initGeetest({
-		gt: "{$geetest_html->gt}",
-		challenge: "{$geetest_html->challenge}",
-		product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
-		offline: {if $geetest_html->success}0{else}1{/if} // 表示用户后台检测极验服务器是否宕机，与SDK配合，用户一般不需要关注
-	}, handlerPopup);
+initGeetest({
+	gt: "{$geetest_html->gt}",
+	challenge: "{$geetest_html->challenge}",
+	product: "popup", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+	offline: {if $geetest_html->success}0{else}1{/if} // 表示用户后台检测极验服务器是否宕机，与SDK配合，用户一般不需要关注
+}, handlerPopup);
 	
-	
-</script>
 
 
 {/if}
 
 
+</script>

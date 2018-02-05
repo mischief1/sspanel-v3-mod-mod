@@ -26,7 +26,6 @@
 						<div class="card-main">
 							<div class="card-inner">
 								<p>系统中所有商品的列表。您购买等级类的商品时有效期会从当前时间开始计算。</p>
-								<p><b>注意：重复购买不会叠加</b></p>
 								<p>当前余额：{$user->money} 元</p>
 							</div>
 						</div>
@@ -72,9 +71,9 @@
 						{$shops->render()}
 					</div>
 					
-
-					<div aria-hidden="true" class="modal fade" id="coupon_modal" role="dialog" tabindex="-1">
-						<div class="modal-dialog">
+					
+					<div aria-hidden="true" class="modal modal-va-middle fade" id="coupon_modal" role="dialog" tabindex="-1">
+						<div class="modal-dialog modal-xs">
 							<div class="modal-content">
 								<div class="modal-heading">
 									<a class="modal-close" data-dismiss="modal">×</a>
@@ -94,8 +93,8 @@
 					</div>
 					
 					
-					<div aria-hidden="true" class="modal fade" id="order_modal" role="dialog" tabindex="-1">
-						<div class="modal-dialog">
+					<div aria-hidden="true" class="modal modal-va-middle fade" id="order_modal" role="dialog" tabindex="-1">
+						<div class="modal-dialog modal-xs">
 							<div class="modal-content">
 								<div class="modal-heading">
 									<a class="modal-close" data-dismiss="modal">×</a>

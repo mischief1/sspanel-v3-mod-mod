@@ -15,6 +15,7 @@ use App\Utils\Hash,App\Utils\Da;
 use App\Services\Auth;
 use App\Services\Mail;
 use App\Models\User;
+use App\Models\InviteUrl;
 use App\Models\LoginIp;
 use App\Models\EmailVerify;
 use App\Utils\Duoshuo;
@@ -126,10 +127,13 @@ class AuthController extends BaseController
     {
         $ary = $request->getQueryParams();
         $code = "";
+        $i = "";
         if(isset($ary['code'])){
             $code = $ary['code'];
         }
-		
+		if(isset($ary['i'])){
+			$i = $ary['i'];
+		}
 		$uid = time().rand(1,10000) ;
 		
 		if(Config::get('enable_geetest_reg') == 'true')
@@ -143,7 +147,7 @@ class AuthController extends BaseController
 		
 		
 		
-        return $this->view()->assign('enable_invite_code',Config::get('enable_invite_code'))->assign('geetest_html',$GtSdk)->assign('enable_email_verify',Config::get('enable_email_verify'))->assign('code',$code)->display('auth/register.tpl');
+        return $this->view()->assign('enable_invite_code',Config::get('enable_invite_code'))->assign('invite_url',Config::get('invite_url'))->assign('geetest_html',$GtSdk)->assign('enable_email_verify',Config::get('enable_email_verify'))->assign('code',$code)->assign('i',$i)->display('auth/register.tpl');
     }
 	
 	
@@ -233,6 +237,19 @@ class AuthController extends BaseController
 		$wechat = $request->getParam('wechat');
         // check code
 		
+		if(Config::get('invite_url') == 'true')
+		{
+			$ref_by = $request->getParam('inviter');
+			if ($ref_by != ""){
+				$u = User::where('id', $ref_by)->first();
+				if ($u == null){
+					$res['ret'] = 0;
+					$res['msg'] = "邀请者不存在";
+					return $response->getBody()->write(json_encode($res));
+				}
+			}
+		}
+
 		if(Config::get('enable_geetest_reg') == 'true')
 		{
 			$ret = Geetest::verify($request->getParam('geetest_challenge'),$request->getParam('geetest_validate'),$request->getParam('geetest_seccode'));
@@ -338,8 +355,12 @@ class AuthController extends BaseController
 		if(Config::get('enable_invite_code')=='true')
 		{
 			$user->ref_by = $c->user_id;
-		}
-		else
+		}elseif (Config::get('invite_url')=='true'){
+			$user->ref_by = 0;
+			if ($u != null) {
+				$user->ref_by = $u->id;
+			}
+		}else
 		{
 			$user->ref_by = 0;
 		}

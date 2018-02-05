@@ -2,6 +2,8 @@
 
 namespace App\Models;
 use App\Services\Config;
+use App\Models\User;
+use App\Models\InviteUrl;
 
 class Shop extends Model
 
@@ -103,7 +105,16 @@ class Shop extends Model
 	{
 		$content = json_decode($this->attributes['content'],TRUE);
         $content_text="";
-		
+        $inviter = "";
+		if(Config::get('enable_bought_reset') == 'true'){
+			if ($user->ref_by != 0) {
+				$inviter = User::where("id",$user->ref_by)->first();
+				$inviteUrl = new InviteUrl();
+				$inviteUrl->user_id=$inviter->id;
+				$inviteUrl->invited_user_id = $user->id;
+				$inviteUrl->plus_date = date("Y-m-d H:i:s",time());
+			}
+		}
 		foreach($content as $key=>$value)
 		{
 			switch ($key)
@@ -137,6 +148,28 @@ class Shop extends Model
 							$user->transfer_enable=$user->transfer_enable+$value*1024*1024*1024;
 						}
 					}
+
+					if ($inviter != "") {
+						if($is_renew == 0)
+						{
+							$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024/10;
+						}
+						else
+						{
+							if($this->attributes['auto_reset_bandwidth'] == 1)
+							{
+								$inviter->transfer_enable=$value*1024*1024*1024/10;
+								$inviter->u = 0;
+								$inviter->d = 0;
+								$inviter->last_day_t = 0;
+							}
+							else
+							{
+								$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024/10;
+							}
+						}
+						$inviteUrl->plus_bandwidth = $value/10;
+					}
 					break;
 				case "expire":
 					if(time()>strtotime($user->expire_in))
@@ -147,6 +180,17 @@ class Shop extends Model
 					{
 						$user->expire_in=date("Y-m-d H:i:s",strtotime($user->expire_in)+$value*86400);
 					}
+
+					if ($inviter != "") {
+						if(time()>strtotime($inviter->expire_in))
+						{
+							$inviter->expire_in=date("Y-m-d H:i:s",time()+$value*86400/10);
+						}
+						else
+						{
+							$inviter->expire_in=date("Y-m-d H:i:s",strtotime($inviter->expire_in)+$value*86400/10);
+						}
+					}
 					break;
 				case "class":
 					if($user->class==0||$user->class!=$value)
@@ -155,13 +199,27 @@ class Shop extends Model
 					}
 					$user->class_expire=date("Y-m-d H:i:s",strtotime($user->class_expire)+$content["class_expire"]*86400);
 					$user->class=$value;
+
+					if ($inviter != "") {
+						if($inviter->class==0||$inviter->class!=$value)
+						{
+							$inviter->class_expire=date("Y-m-d H:i:s",time());
+						}
+						$inviter->class_expire=date("Y-m-d H:i:s",strtotime($inviter->class_expire)+$content["class_expire"]*86400/10);
+						$inviter->class=$value;
+						$inviteUrl->plus_time = $content["class_expire"]/10;
+
+					}
 					break;
 				default:
 			}
 			
 			
 		}
-		
+		if ($inviter != "") {
+			$inviteUrl->save();
+			$inviter->save();
+		}
 		$user->save();
 	}
 }

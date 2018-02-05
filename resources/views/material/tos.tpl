@@ -11,7 +11,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-lg-push-0 col-sm-12 col-sm-push-0">
-						<h1 class="content-heading">TOS</h1>
+						<h1 class="content-heading">使用须知</h1>
 					</div>
 				</div>
 			</div>
@@ -56,8 +56,9 @@
 											<p>
 												<ul>
 													<li>禁止使用本站服务进行任何违法恶意活动。</li>
+													<li>违法恶意活动包括但不限于传播反华言论。</li>
 													<li>使用任何节点，需遵循节点所属国家的相关法律以及中国法律。</li>
-													<li>禁止滥用本站提供的服务。</li>
+													<li>禁止滥用本站提供的服务，尊重版权声明。</li>
 													<li>对于免费用户，我们有权在不通知的情况下删除账户。</li>
 													<li>任何违法使用条款的用户，我们将会删除违规账户并没收使用本站服务的权利。</li>
 											   </ul>
@@ -76,7 +77,7 @@
 										
 											<p>
 												<ul>
-													<li>本站仅限人类注册使用。</li>
+													<li>请携带脑子浏览外界风景，我相信大家都是有分辨能力的人。</li>
 													<li>TOS更新时用户需要遵守最新TOS。</li>
 											   </ul>
 											</p>

@@ -1,86 +1,86 @@
-<link href="//cdn.bootcss.com/material-design-lite/1.2.1/material.min.css" rel="stylesheet">
-<script src="//cdn.bootcss.com/material-design-lite/1.2.1/material.min.js"></script>
 {include file='user/main.tpl'}
-<style>
-.demo-card-wide.mdl-card {
-padding: 5% 0;
-width: 100%;
-}
-.demo-card-wide > .mdl-card__title {
-color: #fff;
-height: 176px;
-background: url('../image/web/Google.jpg') center / cover;
-}
-.demo-card-wide > .mdl-card__menu {
-color: #fff;
-}
-.mdl-layout{
-	padding: 0 10%;
-	width: 100%;
-}
-.mdl-layout__header{
-	padding: 0 10%;
-	min-height: 0px;
-}
-</style>
-<!-- 环境配置 -->
-<main class="content">
-<!-- 站点头部-->
-<div class="content-header ui-content-header">
-	<div class="container">
-		<h1 class="content-heading">网站导航</h1>
-	</div>
-</div>
-<!-- Simple header with fixed tabs. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
-	mdl-layout--fixed-tabs">
-	<header class="mdl-layout__header">
-		<!-- Tabs -->
-		<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-			<a href="#fixed-tab-1" class="mdl-layout__tab is-active">学习</a>
-			<a href="#fixed-tab-2" class="mdl-layout__tab">社交</a>
-			<a href="#fixed-tab-3" class="mdl-layout__tab">影视</a>
-			<a href="#fixed-tab-4" class="mdl-layout__tab">游戏</a>
-			<a href="#fixed-tab-5" class="mdl-layout__tab">资源</a>
-		</div>
-	</header>
-	<main class="mdl-layout__content">
-	<section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-		<div class="page-content"><!-- Your content goes here -->
 
-		<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-					<div class="mdl-card__title">
-								<h2 class="mdl-card__title-text">Welcome</h2>
-					</div>
-					<div class="mdl-card__supporting-text">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Mauris sagittis pellentesque lacus eleifend lacinia...
-					</div>
-					<div class="mdl-card__actions mdl-card--border">
-								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-											Get Started
-								</a>
-					</div>
-					<div class="mdl-card__menu">
-								<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-								<i class="material-icons">share</i>
-								</button>
-					</div>
+	<main class="content">
+		<div class="content-header ui-content-header">
+			<div class="container">
+				<h1 class="content-heading">站点导航</h1>
+			</div>
 		</div>
-	</div>
-</section>
-<section class="mdl-layout__tab-panel" id="fixed-tab-2">
-	<div class="page-content"><!-- Your content goes here --></div>
-</section>
-<section class="mdl-layout__tab-panel" id="fixed-tab-3">
-	<div class="page-content"><!-- Your content goes here --></div>
-</section>
-<section class="mdl-layout__tab-panel" id="fixed-tab-4">
-	<div class="page-content"><!-- Your content goes here --></div>
-</section>
-<section class="mdl-layout__tab-panel" id="fixed-tab-5">
-	<div class="page-content"><!-- Your content goes here --></div>
-</section>
-</main>
-</div>
-</main>
+
+		<div class="container">
+			<section class="content-inner margin-top-no">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="card margin-bottom-no">
+							<div class="card-main">
+								<div class="card-inner">
+									<p>由于网络瞬息万变，可能某个域名内的东西第二天就变了。本地址导航不对链接内的可信度做任何保证，请自行分辨，尤其是购物网站！！！</p>
+									<p>请理性看待站外内容</p>
+									<p>站点导航会不定时完善，敬请期待</p>
+									<div class="card-action">
+										<div class="card-action-btn pull-left">
+											<a href="/user/navigation?tag=1"><button class="btn btn-flat waves-attach"><span class="icon">check</span>&nbsp;学习工具</button></a>
+											<a href="/user/navigation?tag=2"><button class="btn btn-flat waves-attach"><span class="icon">check</span>&nbsp;音频娱乐</button></a>
+											<a href="/user/navigation?tag=3"><button class="btn btn-flat waves-attach"><span class="icon">check</span>&nbsp;社交网络</button>
+											<a href="/user/navigation?tag=4"><button class="btn btn-flat waves-attach"><span class="icon">check</span>&nbsp;新闻资讯</button></a>
+											<a href="/user/navigation?tag=5"><button class="btn btn-flat waves-attach"><span class="icon">check</span>&nbsp;线上购物</button></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+						<div class="card-main">
+							<div class="card-inner margin-bottom-no">
+								<p class="card-heading">网站列表</p>
+								<div class="card-table">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+											<tr>
+												<th>网站名称</th>
+												<th>网站描述</th>
+												<th>链接</th>
+											</tr>
+											</thead>
+											<tbody>
+
+											
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+			</section>
+		</div>
+
+
+
+	</main>
+	<script src="/web.json"></script>
+
+	
+{include file='user/footer.tpl'}
+<script>
+		function GetQueryString(name){
+     	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     	var r = window.location.search.substr(1).match(reg);
+    	if(r!=null)return  unescape(r[2]); return null;
+		}
+		$(function(){
+			var tag = GetQueryString("tag");
+			for (var x in json){
+				if (json[x].Tag == tag) {
+					$("tbody").append("<tr><th>" + json[x].Name + "</th><th>" + json[x].Describe + "</th><th><a href=\"go?name="+ json[x].Name + "&url=" + json[x].Url + "\">点击进入</a>" + "</th></tr>")
+				}
+			}
+			})
+		
+	</script>

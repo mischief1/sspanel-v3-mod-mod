@@ -25,7 +25,7 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>{$config["appName"]} 的邀请码，没了可以到<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef2e291669d93eee135346aea10113dc1f9a51f75a315e4280317850b0e55997"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="科学VPN官方" title="科学VPN官方"></a>向群友求码。</p>
+								<p>{$config["appName"]} 的邀请码，没了的话就加入官方群索取吧<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=10381c3b75c41733e11bd9b5eba020d2f8397499b50c09a61f7ce3af86b681bf"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="科学" title="科学"></a>。</p>
 							</div>
 						</div>
 					</div>

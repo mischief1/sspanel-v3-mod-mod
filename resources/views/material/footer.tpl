@@ -7,9 +7,18 @@
 
 	<!-- js -->
 	<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-	<script src="https://static.geetest.com/static/tools/gt.js"></script>
+	<script src="//static.geetest.com/static/tools/gt.js"></script>
 	
 	<script src="/theme/material/js/base.min.js"></script>
 	<script src="/theme/material/js/project.min.js"></script>
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?cb5c9f6f85a152818d65a0656b9781c4";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
 </body>
 </html>

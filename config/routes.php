@@ -71,6 +71,7 @@ $app->get('/404', 'App\Controllers\HomeController:page404');
 $app->get('/405', 'App\Controllers\HomeController:page405');
 $app->get('/500', 'App\Controllers\HomeController:page500');
 $app->get('/pwm_pingback', 'App\Controllers\HomeController:pmw_pingback');
+$app->post('/alipay_callback', 'App\Controllers\HomeController:alipay_callback');
 $app->get('/code', 'App\Controllers\HomeController:code');
 $app->get('/tos', 'App\Controllers\HomeController:tos');
 $app->get('/staff', 'App\Controllers\HomeController:staff');
@@ -88,10 +89,15 @@ $app->group('/user', function () {
 	$this->get('/donate', 'App\Controllers\UserController:donate');
 	$this->get('/lookingglass', 'App\Controllers\UserController:lookingglass');
 	$this->get('/node/{id}', 'App\Controllers\UserController:nodeInfo');
-	$this->get('/navigation', 'App\Controllers\UserController:navigation');
 	$this->get('/node/{id}/ajax', 'App\Controllers\UserController:nodeAjax');
 	$this->get('/profile', 'App\Controllers\UserController:profile');
 	$this->get('/invite', 'App\Controllers\UserController:invite');
+	$this->get('/navigation', 'App\Controllers\UserController:navigation');
+	$this->get('/go', 'App\Controllers\UserController:go');
+	$this->get('/save', 'App\Controllers\UserController:save');
+
+	$this->get('/inviteurl', 'App\Controllers\UserController:inviteurl');
+
 
 	$this->get('/detect', 'App\Controllers\UserController:detect_index');
 	$this->get('/detect/log', 'App\Controllers\UserController:detect_log');
@@ -99,6 +105,15 @@ $app->group('/user', function () {
 	$this->get('/shop', 'App\Controllers\UserController:shop');
 	$this->post('/coupon_check', 'App\Controllers\UserController:CouponCheck');
 	$this->post('/buy', 'App\Controllers\UserController:buy');
+	
+	
+	// Relay Mange
+	$this->get('/relay', 'App\Controllers\RelayController:index');
+	$this->get('/relay/create', 'App\Controllers\RelayController:create');
+	$this->post('/relay', 'App\Controllers\RelayController:add');
+	$this->get('/relay/{id}/edit', 'App\Controllers\RelayController:edit');
+	$this->put('/relay/{id}', 'App\Controllers\RelayController:update');
+	$this->delete('/relay', 'App\Controllers\RelayController:delete');
 
 	$this->get('/ticket', 'App\Controllers\UserController:ticket');
 	$this->get('/ticket/create', 'App\Controllers\UserController:ticket_create');
@@ -122,6 +137,7 @@ $app->group('/user', function () {
 	$this->post('/kill', 'App\Controllers\UserController:handleKill');
 	$this->get('/logout', 'App\Controllers\UserController:logout');
 	$this->get('/code', 'App\Controllers\UserController:code');
+	$this->get('/alipay/{amount}', 'App\Controllers\UserController:alipay');
 	$this->get('/code_check', 'App\Controllers\UserController:code_check');
 	$this->post('/code', 'App\Controllers\UserController:codepost');
 	$this->post('/gacheck', 'App\Controllers\UserController:GaCheck');
@@ -174,6 +190,13 @@ $app->group('/admin', function () {
 	$this->get('/ticket/{id}/view', 'App\Controllers\Admin\TicketController:show');
 	$this->put('/ticket/{id}', 'App\Controllers\Admin\TicketController:update');
 
+	// Relay Mange
+	$this->get('/relay', 'App\Controllers\Admin\RelayController:index');
+	$this->get('/relay/create', 'App\Controllers\Admin\RelayController:create');
+	$this->post('/relay', 'App\Controllers\Admin\RelayController:add');
+	$this->get('/relay/{id}/edit', 'App\Controllers\Admin\RelayController:edit');
+	$this->put('/relay/{id}', 'App\Controllers\Admin\RelayController:update');
+	$this->delete('/relay', 'App\Controllers\Admin\RelayController:delete');
 
 	// Shop Mange
 	$this->get('/shop', 'App\Controllers\Admin\ShopController:index');

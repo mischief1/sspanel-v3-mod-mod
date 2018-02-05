@@ -21,6 +21,8 @@ class Mail
     {
         $driver = Config::get("mailDriver");
         switch ($driver) {
+            case "mailgun":
+                return new Mailgun();
             case "ses":
                 return new Ses();
             case "smtp":

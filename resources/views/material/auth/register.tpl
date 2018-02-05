@@ -12,7 +12,7 @@
 							<div class="card-main">
 								<div class="card-header">
 									<div class="card-inner">
-										<h1 class="card-heading">越过长城，走向世界。</h1>
+										<h1 class="card-heading">越过长城，走向世界</h1>
 									</div>
 								</div>
 								<div class="card-inner">
@@ -102,8 +102,19 @@
 											<div class="form-group form-group-label">
 												<div class="row">
 													<div class="col-md-10 col-md-push-1">
-														<label class="floating-label" for="code">邀请码<a href="/code">获取邀请码</a></label>
+														<label class="floating-label" for="code">邀请码</label>
 														<input class="form-control" id="code" type="text" value="{$code}">
+													</div>
+												</div>
+											</div>
+										{/if}
+
+										{if $invite_url == 'true'}
+											<div class="form-group form-group-label">
+												<div class="row">
+													<div class="col-md-10 col-md-push-1">
+														<label class="floating-label" for="code">邀请者</label>
+														<input class="form-control" id="inviter" type="text" value="{$i}">
 													</div>
 												</div>
 											</div>
@@ -190,7 +201,8 @@
                     name: $("#name").val(),
                     passwd: $("#passwd").val(),
                     repasswd: $("#repasswd").val(),
-					wechat: $("#wechat").val(),
+					wechat: $("#wechat").val(){if $invite_url == 'true'},
+					inviter: $("#inviter").val(){/if},
 					imtype: $("#imtype").val(){if $enable_invite_code == 'true'},
 					code: $("#code").val(){/if}{if $enable_email_verify == 'true'},
 					emailcode: $("#email_code").val(){/if}{if $geetest_html != null},
@@ -207,14 +219,21 @@
                     }else{
                         $("#result").modal();
                         $("#msg").html(data.msg);
-						document.getElementById("tos").disabled = false; 
+			document.getElementById("tos").disabled = false; 
+
+			{if $geetest_html != null}
+			captcha.refresh();
+			{/if}
                     }
                 },
                 error:function(jqXHR){
-                    $("#msg-error").hide(10);
-                    $("#msg-error").show(100);
-                    $("#msg-error-p").html("发生错误："+jqXHR.status);
-					document.getElementById("tos").disabled = false; 
+			$("#msg-error").hide(10);
+			$("#msg-error").show(100);
+			$("#msg-error-p").html("发生错误："+jqXHR.status);
+			document.getElementById("tos").disabled = false; 
+			{if $geetest_html != null}
+			captcha.refresh();
+			{/if}
                 }
             });
         }
@@ -298,16 +317,16 @@ function time(o) {
                 success: function (data) {
                     if (data.ret) {
                         $("#result").modal();
-						$("#msg").html(data.msg);
+			$("#msg").html(data.msg);
 						
                     } else {
                         $("#result").modal();
-						$("#msg").html(data.msg);
+			$("#msg").html(data.msg);
                     }
                 },
                 error: function (jqXHR) {
                     $("#result").modal();
-					$("#msg").html(data.msg+"     出现了一些错误。");
+			$("#msg").html(data.msg+"     出现了一些错误。");
                 }
             })
         })
@@ -321,11 +340,13 @@ function time(o) {
         // 将验证码加到id为captcha的元素里
 		
 		captchaObj.onSuccess(function () {
-            validate = captchaObj.getValidate();
-        });
+		    validate = captchaObj.getValidate();
+		});
 		
-        captchaObj.appendTo("#embed-captcha");
-        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+		captchaObj.appendTo("#embed-captcha");
+
+		captcha = captchaObj;
+		// 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
     };
 	
 	initGeetest({

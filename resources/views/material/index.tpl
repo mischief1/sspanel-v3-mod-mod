@@ -24,7 +24,7 @@
 								<div class="card">
 									<div class="card-main">
 										<div class="card-inner">
-											<p>想学习上网的真正姿势吗？</p>
+											<p>如何科学的进行上网</p>
 										</div>
 									</div>
 								</div>
@@ -55,7 +55,7 @@
 										<div class="card-inner">
 											<p class="card-heading">注册</p>
 											<p>
-												没有账户？注册一个。
+												没有账户？点击按钮注册一个。
 											</p>
 										</div>
 										<div class="card-action">
@@ -73,7 +73,7 @@
 										<div class="card-inner">
 											<p class="card-heading">登录</p>
 											<p>
-												有账户了？登录。
+												有账户了？点击登录。
 											</p>
 										</div>
 										<div class="card-action">

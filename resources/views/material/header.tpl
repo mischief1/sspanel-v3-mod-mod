@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +10,7 @@
 	<!-- css -->
 	<link href="/theme/material/css/base.min.css" rel="stylesheet">
 	<link href="/theme/material/css/project.min.css" rel="stylesheet">
-	<link href="https://fonts.lug.ustc.edu.cn/icon?family=Material+Icons" rel="stylesheet">
+	<link href="//fonts.lug.ustc.edu.cn/icon?family=Material+Icons" rel="stylesheet">
 	
 	<!-- favicon -->
 	<!-- ... -->
@@ -72,10 +66,7 @@
 						<a  href="/"><i class="icon icon-lg">bookmark_border</i>&nbsp;首页</a>
 					</li>
 					<li>
-						<a  href="/tos"><i class="icon icon-lg">text_format</i>&nbsp;用户协议</a>
-					</li>
-					<li>
-						<a  href="/code"><i class="icon icon-lg">code</i>&nbsp;邀请码</a>
+						<a  href="/tos"><i class="icon icon-lg">text_format</i>&nbsp;使用须知</a>
 					</li>
 					{if $user->isLogin}
 					<li>
