@@ -240,6 +240,7 @@ class AuthController extends BaseController
 		if(Config::get('invite_url') == 'true')
 		{
 			$ref_by = $request->getParam('inviter');
+			$u = null;
 			if ($ref_by != ""){
 				$u = User::where('id', $ref_by)->first();
 				if ($u == null){
