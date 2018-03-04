@@ -35,19 +35,7 @@ CREATE TABLE `ss_invite_url` (
   `plus_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `ss_invite_url`
---
 
-INSERT INTO `ss_invite_url` (`id`, `user_id`, `invited_user_id`, `plus_time`, `plus_bandwidth`, `plus_date`) VALUES
-(1, 1, 1158, 0, 102, '0000-00-00 00:00:00'),
-(2, 1, 1158, 37, 102, '2018-02-05 18:22:47'),
-(3, 1, 1158, 3, 5, '2018-02-05 18:22:52'),
-(4, 1, 1162, 37, 102, '2018-02-07 13:46:02'),
-(5, 1128, 1184, 3, 5, '2018-02-23 23:33:57'),
-(6, 1134, 1192, 3, 5, '2018-02-27 19:05:59');
-
---
 -- Indexes for dumped tables
 --
 
