@@ -244,9 +244,12 @@ class AuthController extends BaseController
 			if ($ref_by != ""){
 				$u = User::where('id', $ref_by)->first();
 				if ($u == null){
-					$res['ret'] = 0;
-					$res['msg'] = "邀请者不存在";
-					return $response->getBody()->write(json_encode($res));
+					$u = User::where('email', $ref_by)->first();
+					if ($u == null){
+						$res['ret'] = 0;
+						$res['msg'] = "邀请者不存在";
+						return $response->getBody()->write(json_encode($res));
+					}
 				}
 			}
 		}

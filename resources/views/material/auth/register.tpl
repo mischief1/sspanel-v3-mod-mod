@@ -113,7 +113,7 @@
 											<div class="form-group form-group-label">
 												<div class="row">
 													<div class="col-md-10 col-md-push-1">
-														<label class="floating-label" for="code">邀请者</label>
+														<label class="floating-label" for="code">邀请者id或者邮箱</label>
 														<input class="form-control" id="inviter" type="text" value="{$i}">
 													</div>
 												</div>

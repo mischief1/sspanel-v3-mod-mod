@@ -340,7 +340,8 @@ class UserController extends BaseController
 	        }
 	        $invites = InviteUrl::where("user_id", $uid)->paginate(15, ['*'], 'page', $pageNum);
 	        $invites->setPath('/user/inviteurl');
-			return $this->view()->assign('inviteurl',$this->user->getInviteUrl())->assign('invites', $invites)->display('user/inviteurl.tpl');
+	        $invite_back = Config::get('invite_back')
+			return $this->view()->assign('inviteurl',$this->user->getInviteUrl())->assign('invite_back', $invite_back)->assign('invites', $invites)->display('user/inviteurl.tpl');
 		}
 	}
 	
