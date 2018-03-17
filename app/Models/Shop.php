@@ -106,14 +106,13 @@ class Shop extends Model
 		$content = json_decode($this->attributes['content'],TRUE);
         $content_text="";
         $inviter = "";
-		if(Config::get('invite_url') == 'true'){
+		if(Config::get('enable_bought_reset') == 'true'){
 			if ($user->ref_by != 0) {
 				$inviter = User::where("id",$user->ref_by)->first();
 				$inviteUrl = new InviteUrl();
 				$inviteUrl->user_id=$inviter->id;
 				$inviteUrl->invited_user_id = $user->id;
 				$inviteUrl->plus_date = date("Y-m-d H:i:s",time());
-				$invite_back = (int)Config::get('invite_back');
 			}
 		}
 		foreach($content as $key=>$value)
@@ -153,23 +152,23 @@ class Shop extends Model
 					if ($inviter != "") {
 						if($is_renew == 0)
 						{
-							$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024*$invite_back/100;
+							$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024/10;
 						}
 						else
 						{
 							if($this->attributes['auto_reset_bandwidth'] == 1)
 							{
-								$inviter->transfer_enable=$value*1024*1024*1024*$invite_back/100;
+								$inviter->transfer_enable=$value*1024*1024*1024/10;
 								$inviter->u = 0;
 								$inviter->d = 0;
 								$inviter->last_day_t = 0;
 							}
 							else
 							{
-								$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024*$invite_back/100;
+								$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024/10;
 							}
 						}
-						$inviteUrl->plus_bandwidth = $value*$invite_back/100;
+						$inviteUrl->plus_bandwidth = $value/10;
 					}
 					break;
 				case "expire":
@@ -185,11 +184,11 @@ class Shop extends Model
 					if ($inviter != "") {
 						if(time()>strtotime($inviter->expire_in))
 						{
-							$inviter->expire_in=date("Y-m-d H:i:s",time()+$value*86400*$invite_back/100);
+							$inviter->expire_in=date("Y-m-d H:i:s",time()+$value*86400/10);
 						}
 						else
 						{
-							$inviter->expire_in=date("Y-m-d H:i:s",strtotime($inviter->expire_in)+$value*86400*$invite_back/100);
+							$inviter->expire_in=date("Y-m-d H:i:s",strtotime($inviter->expire_in)+$value*86400/10);
 						}
 					}
 					break;
@@ -206,9 +205,9 @@ class Shop extends Model
 						{
 							$inviter->class_expire=date("Y-m-d H:i:s",time());
 						}
-						$inviter->class_expire=date("Y-m-d H:i:s",strtotime($inviter->class_expire)+$content["class_expire"]*86400*$invite_back/100);
+						$inviter->class_expire=date("Y-m-d H:i:s",strtotime($inviter->class_expire)+$content["class_expire"]*86400/10);
 						$inviter->class=$value;
-						$inviteUrl->plus_time = $content["class_expire"]*$invite_back/100;
+						$inviteUrl->plus_time = $content["class_expire"]/10;
 
 					}
 					break;

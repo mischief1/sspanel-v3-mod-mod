@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\InviteCode;
 use App\Models\User;
 use App\Models\Code;
+use App\Models\Node;
 use App\Models\Payback;
 use App\Models\Paylist;
 use App\Services\Auth;
@@ -195,6 +196,50 @@ class HomeController extends BaseController
 		{
 			echo 'error';
 		}
+    }
+
+
+
+    public function SubscribeConf($request, $response, $args){
+    	$token = '';
+    	if (isset($request->getQueryParams()["token"])) {
+            $token = $request->getQueryParams()["token"];
+        }else{
+        	return null;
+        }
+    	$user = User::where('ga_token', $token)->first();
+    	$conf = "";
+    	if ($user == null) {
+    		return null;
+    	}
+    	$this->user = $user;
+    	$nodes = Node::where(function ($query) {
+				$query->Where("node_group","=",$this->user->node_group)
+					->orWhere("node_group","=",0);
+			})->where('type', 1)->where("node_class","<=",$user->class)->orderBy('name')->get();
+    	foreach ($nodes as $node) {
+    		$ary['server'] = $node->server;
+			$ary['local_address'] = '127.0.0.1';
+			$ary['local_port'] = 1080;
+			$ary['timeout'] = 300;
+			$ary['workers'] = 1;
+			$ary['server_port'] = $user->port;
+			$ary['password'] = $user->passwd;
+			$ary['method'] = $node->method;
+			if ($node->custom_method) {
+				$ary['method'] = $user->method;
+			}
+			if ($node->custom_rss) {
+				$ary['obfs'] = str_replace("_compatible","",$user->obfs);
+				$ary['protocol'] = str_replace("_compatible","",$user->protocol);
+			}
+    		$json = json_encode($ary);
+			$json_show = json_encode($ary, JSON_PRETTY_PRINT);
+			$ssurl = $ary['server']. ":" . $ary['server_port'].":".str_replace("_compatible","",$user->protocol).":".$ary['method'].":".str_replace("_compatible","",$user->obfs).":".Tools::base64_url_encode($ary['password'])."/?obfsparam=".Tools::base64_url_encode($user->obfs_param)."&remarks=".Tools::base64_url_encode($node->name) . "&group=" . Tools::base64_url_encode(Config::get('appName'));
+			$ssqr_s_new = "ssr://" . Tools::base64_url_encode($ssurl);
+			$conf .= $ssqr_s_new."\n";
+    	}
+    	return $response->getBody()->write($conf);
     }
 
 	public function alipay_callback($request, $response, $args)

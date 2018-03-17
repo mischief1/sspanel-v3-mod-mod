@@ -79,8 +79,14 @@ class User extends Model
 
     public function getInviteUrl()
     {
-        $InviteUrl = "http://www.kxvpn.xyz/auth/register?i=".$this->attributes['id'];
+        $InviteUrl = Config::get('baseUrl')."/auth/register?i=".$this->attributes['id'];
         return $InviteUrl;
+    }
+
+    public function getSubscribeUrl()
+    {
+        $subscribeUrl = Config::get('baseUrl')."/subscribe?token=".$this->attributes['ga_token'];
+        return $subscribeUrl;
     }
 
     public function regDate()

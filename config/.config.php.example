@@ -75,7 +75,6 @@ $System_Config['invite_back'] = '10';  //返利比例,10为每次被邀请用户
 //todo, 有空会尽量完成
 $System_Config['open_conpen'] = 'false'; // 是否开启公共优惠码
 $System_Config['usefull_url'] = 'false';  //是否开启常用站点导航功能
-$System_Config['live'] = 'false';  //转发直播
 
 #glzjin's time
 

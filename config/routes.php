@@ -77,6 +77,8 @@ $app->get('/tos', 'App\Controllers\HomeController:tos');
 $app->get('/staff', 'App\Controllers\HomeController:staff');
 $app->get('/gfwlistjs', 'App\Controllers\LinkController:GetGfwlistJs');
 $app->post('/telegram_callback', 'App\Controllers\HomeController:telegram');
+$app->get('/subscribe', 'App\Controllers\HomeController:subscribeConf');
+
 
 
 // User Center
