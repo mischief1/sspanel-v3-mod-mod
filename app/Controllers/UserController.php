@@ -340,7 +340,8 @@ class UserController extends BaseController
 	        }
 	        $invites = InviteUrl::where("user_id", $uid)->paginate(15, ['*'], 'page', $pageNum);
 	        $invites->setPath('/user/inviteurl');
-			return $this->view()->assign('inviteurl',$this->user->getInviteUrl())->assign('invites', $invites)->display('user/inviteurl.tpl');
+		$invite_back = Config::get('invite_back')
+		return $this->view()->assign('inviteurl',$this->user->getInviteUrl())->assign('invite_back', $invite_back)->assign('invites', $invites)->display('user/inviteurl.tpl');
 		}
 	}
 	
@@ -848,7 +849,8 @@ class UserController extends BaseController
 	$node_prefix=(object)$node_prefix;
 	$node_order=(object)$node_order;
 	$tools = new Tools();
-        return $this->view()->assign('relay_rules', $relay_rules)->assign('tools', $tools)->assign('subscribeUrl',$user->getSubscribeUrl())->assign('relay_nodes', $relay_nodes)->assign('node_method', $node_method)->assign('node_relay', $node_relay)->assign('node_muport', $node_muport)->assign('node_bandwidth',$node_bandwidth)->assign('node_heartbeat',$node_heartbeat)->assign('node_prefix', $node_prefix)->assign('node_prealive', $node_prealive)->assign('node_order', $node_order)->assign('user', $user)->assign('node_alive', $node_alive)->display('user/node.tpl');
+	return $this->view()->assign('relay_rules', $relay_rules)->assign('tools', $tools)->assign('subscribeUrl',$user->getSubscribeUrl())->assign('relay_nodes', $relay_nodes)->assign('node_method', $node_method)->assign('node_relay', $node_relay)->assign('node_muport', $node_muport)->assign('node_bandwidth',$node_bandwidth)->assign('node_heartbeat',$node_heartbeat)->assign('node_prefix', $node_prefix)->assign('node_prealive', $node_prealive)->assign('node_order', $node_order)->assign('user', $user)->assign('node_alive', $node_alive)->display('user/node.tpl');
+
     }
 
 
@@ -1139,7 +1141,7 @@ class UserController extends BaseController
 						$is_mu = 1;
 					}
 					
-					$json = json_encode($m);
+					$json = json_encode($ary);
 					$json_show = json_encode($ary, JSON_PRETTY_PRINT);
 					
 					$ssurl = str_replace("_compatible","",$user->obfs).":".str_replace("_compatible","",$user->protocol).":".$ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port']."/".base64_encode($user->obfs_param);
