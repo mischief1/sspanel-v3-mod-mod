@@ -113,6 +113,7 @@ class Shop extends Model
 				$inviteUrl->user_id=$inviter->id;
 				$inviteUrl->invited_user_id = $user->id;
 				$inviteUrl->plus_date = date("Y-m-d H:i:s",time());
+				$invite_back = (int)Config::get('invite_back');
 			}
 		}
 		foreach($content as $key=>$value)
@@ -152,23 +153,23 @@ class Shop extends Model
 					if ($inviter != "") {
 						if($is_renew == 0)
 						{
-							$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024/10;
+							$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024*$invite_back/100;
 						}
 						else
 						{
 							if($this->attributes['auto_reset_bandwidth'] == 1)
 							{
-								$inviter->transfer_enable=$value*1024*1024*1024/10;
+								$inviter->transfer_enable=$value*1024*1024*1024*$invite_back/100;
 								$inviter->u = 0;
 								$inviter->d = 0;
 								$inviter->last_day_t = 0;
 							}
 							else
 							{
-								$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024/10;
+								$inviter->transfer_enable=$inviter->transfer_enable+$value*1024*1024*1024*$invite_back/100;
 							}
 						}
-						$inviteUrl->plus_bandwidth = $value/10;
+						$inviteUrl->plus_bandwidth = $value*$invite_back/100;
 					}
 					break;
 				case "expire":
@@ -184,7 +185,7 @@ class Shop extends Model
 					if ($inviter != "") {
 						if(time()>strtotime($inviter->expire_in))
 						{
-							$inviter->expire_in=date("Y-m-d H:i:s",time()+$value*86400/10);
+							$inviter->expire_in=date("Y-m-d H:i:s",time()+$value*86400*$invite_back/100);
 						}
 						else
 						{
@@ -205,9 +206,9 @@ class Shop extends Model
 						{
 							$inviter->class_expire=date("Y-m-d H:i:s",time());
 						}
-						$inviter->class_expire=date("Y-m-d H:i:s",strtotime($inviter->class_expire)+$content["class_expire"]*86400/10);
+						$inviter->class_expire=date("Y-m-d H:i:s",strtotime($inviter->class_expire)+$content["class_expire"]*86400*$invite_back/100);
 						$inviter->class=$value;
-						$inviteUrl->plus_time = $content["class_expire"]/10;
+						$inviteUrl->plus_time = $content["class_expire"]*$invite_back/100;
 
 					}
 					break;
