@@ -6,3 +6,8 @@ mod特色<br>
  <li>邀请的返现比例加入</li><br>
 <li>里面放了一个phpmyadmin，有需要的改个名字继续用，不需要的请删掉</li><br>
 <li>别的功能还在考虑中，有想法可以发issues一起讨论</li><br>
+
+<br>
+# TODO<br>
+<li>优化充值逻辑代码
+ <li>更换充值api接口提供商
