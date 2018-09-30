@@ -39,13 +39,11 @@ class UserController extends BaseController
 
     private $user;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->user = Auth::getUser();
     }
 
-    public function index($request, $response, $args)
-    {
+    public function index($request, $response, $args){
 		/*$Speedtest['Tping']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("telecomping","desc")->get();
 		$Speedtest['Uping']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("unicomping","desc")->take(3);
 		$Speedtest['Cping']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("cmccping","desc")->take(3);
@@ -322,8 +320,7 @@ class UserController extends BaseController
 	
 	
 	
-	public function lookingglass($request, $response, $args)
-    {
+	public function lookingglass($request, $response, $args){
 		
 		$Speedtest=Speedtest::where("datetime",">",time()-Config::get('Speedtest_duration')*3600)->orderBy('datetime','desc')->get();
 		
@@ -340,13 +337,12 @@ class UserController extends BaseController
 	        }
 	        $invites = InviteUrl::where("user_id", $uid)->paginate(15, ['*'], 'page', $pageNum);
 	        $invites->setPath('/user/inviteurl');
-		$invite_back = Config::get('invite_back')
-		return $this->view()->assign('inviteurl',$this->user->getInviteUrl())->assign('invite_back', $invite_back)->assign('invites', $invites)->display('user/inviteurl.tpl');
+			$invite_back = Config::get('invite_back');
+			return $this->view()->assign('inviteurl',$this->user->getInviteUrl())->assign('invite_back', $invite_back)->assign('invites', $invites)->display('user/inviteurl.tpl');
 		}
 	}
 	
-	public function code($request, $response, $args)
-    {
+	public function code($request, $response, $args){
 		
 		if(Config::get('enable_paymentwall') == 'true')
 		{
@@ -403,8 +399,7 @@ class UserController extends BaseController
 	
 	
 	
-	public function donate($request, $response, $args)
-    {
+	public function donate($request, $response, $args){
 		if(Config::get('enable_donate') != 'true')
 		{
 			exit(0);
@@ -426,8 +421,7 @@ class UserController extends BaseController
 	}
 	
 	
-	public function code_check($request, $response, $args)
-    {
+	public function code_check($request, $response, $args){
 		$time = $request->getQueryParams()["time"];
 		$codes = Code::where('userid','=',$this->user->id)->where('usedatetime','>',date('Y-m-d H:i:s',$time))->first();
 		if($codes!=null && strpos($codes->code,"充值") !== FALSE)
@@ -444,8 +438,7 @@ class UserController extends BaseController
     }
 
 
-	public function alipay($request, $response, $args)
-    {
+	public function alipay($request, $response, $args){
 		$amount=$args["amount"];
 		require_once(BASE_PATH."/alipay/alipay.config.php");
 		require_once(BASE_PATH."/alipay/lib/alipay_submit.class.php");
@@ -494,8 +487,7 @@ class UserController extends BaseController
     }
 	
 	
-	public function codepost($request, $response, $args)
-    {
+	public function codepost($request, $response, $args){
 		$code = $request->getParam('code');
 		$user = $this->user;
 		
@@ -595,8 +587,7 @@ class UserController extends BaseController
 	
 	
 	
-	public function GaCheck($request, $response, $args)
-    {
+	public function GaCheck($request, $response, $args){
 		$code = $request->getParam('code');
 		$user = $this->user;
 		
@@ -623,8 +614,7 @@ class UserController extends BaseController
     }
 	
 	
-	public function GaSet($request, $response, $args)
-    {
+	public function GaSet($request, $response, $args){
 		$enable = $request->getParam('enable');
 		$user = $this->user;
 		
@@ -645,8 +635,7 @@ class UserController extends BaseController
         return $response->getBody()->write(json_encode($res));
     }
 	
-	public function ResetPort($request, $response, $args)
-    {
+	public function ResetPort($request, $response, $args){
 		
 		$user = $this->user;
 		
@@ -672,8 +661,7 @@ class UserController extends BaseController
 	}
 	
 	
-	public function nodeAjax($request, $response, $args)
-    {
+	public function nodeAjax($request, $response, $args){
 		$id = $args['id'];
 		$point_node=Node::find($id);
 		$prefix=explode(" - ",$point_node->name);
@@ -681,8 +669,7 @@ class UserController extends BaseController
     }
 	
 
-    public function node($request, $response, $args)
-    {
+    public function node($request, $response, $args){
         $user = Auth::getUser();
         $nodes = Node::where(
 		function ($query) {
@@ -849,13 +836,11 @@ class UserController extends BaseController
 	$node_prefix=(object)$node_prefix;
 	$node_order=(object)$node_order;
 	$tools = new Tools();
-	return $this->view()->assign('relay_rules', $relay_rules)->assign('tools', $tools)->assign('subscribeUrl',$user->getSubscribeUrl())->assign('relay_nodes', $relay_nodes)->assign('node_method', $node_method)->assign('node_relay', $node_relay)->assign('node_muport', $node_muport)->assign('node_bandwidth',$node_bandwidth)->assign('node_heartbeat',$node_heartbeat)->assign('node_prefix', $node_prefix)->assign('node_prealive', $node_prealive)->assign('node_order', $node_order)->assign('user', $user)->assign('node_alive', $node_alive)->display('user/node.tpl');
-
+        return $this->view()->assign('relay_rules', $relay_rules)->assign('tools', $tools)->assign('subscribeUrl',$user->getSubscribeUrl())->assign('relay_nodes', $relay_nodes)->assign('node_method', $node_method)->assign('node_relay', $node_relay)->assign('node_muport', $node_muport)->assign('node_bandwidth',$node_bandwidth)->assign('node_heartbeat',$node_heartbeat)->assign('node_prefix', $node_prefix)->assign('node_prealive', $node_prealive)->assign('node_order', $node_order)->assign('user', $user)->assign('node_alive', $node_alive)->display('user/node.tpl');
     }
 
 
-    public function nodeInfo($request, $response, $args)
-    {
+    public function nodeInfo($request, $response, $args){
 		$user = Auth::getUser();
         $id = $args['id'];
         $mu = $request->getQueryParams()["ismu"];
@@ -1199,8 +1184,7 @@ class UserController extends BaseController
     }
 	
 
-    public function profile($request, $response, $args)
-    {
+    public function profile($request, $response, $args){
 		$pageNum = 1;
         if (isset($request->getQueryParams()["page"])) {
             $pageNum = $request->getQueryParams()["page"];
@@ -1249,8 +1233,7 @@ class UserController extends BaseController
     }
 	
 	
-	public function announcement($request, $response, $args)
-    {
+	public function announcement($request, $response, $args){
 		$Anns = Ann::orderBy('date', 'desc')->get();
 		
 		
@@ -1261,8 +1244,7 @@ class UserController extends BaseController
 
 
 
-    public function edit($request, $response, $args)
-    {
+    public function edit($request, $response, $args){
 		$themes=Tools::getDir(BASE_PATH."/resources/views");
 		
 		$BIP = BlockIp::where("ip",$_SERVER["REMOTE_ADDR"])->first();
@@ -1281,8 +1263,7 @@ class UserController extends BaseController
     }
 
 
-    public function invite($request, $response, $args)
-    {
+    public function invite($request, $response, $args){
 		
 		$pageNum = 1;
         if (isset($request->getQueryParams()["page"])) {
@@ -1296,23 +1277,19 @@ class UserController extends BaseController
         return $this->view()->assign('codes', $codes)->display('user/invite.tpl');
     }
     
-    public function navigation($request, $response, $args)
-    {		
+    public function navigation($request, $response, $args){		
 		return $this->view()->display('user/navigation.tpl');
     }
 
-    public function go($request, $response, $args)
-    {		
+    public function go($request, $response, $args){		
 		return $this->view()->display('user/go.tpl');
     }
 
-    public function save($request, $response, $args)
-    {		
+    public function save($request, $response, $args){		
 		return $this->view()->display('user/save.tpl');
     }
 
-    public function doInvite($request, $response, $args)
-    {
+    public function doInvite($request, $response, $args){
         $n = $this->user->invite_num;
         if ($n < 1) {
             $res['ret'] = 0;
@@ -1333,13 +1310,11 @@ class UserController extends BaseController
         return $this->echoJson($response, $res);
     }
 
-    public function sys()
-    {
+    public function sys(){
         return $this->view()->assign('ana', "")->display('user/sys.tpl');
     }
 
-    public function updatePassword($request, $response, $args)
-    {
+    public function updatePassword($request, $response, $args){
         $oldpwd = $request->getParam('oldpwd');
         $pwd = $request->getParam('pwd');
         $repwd = $request->getParam('repwd');
@@ -1369,8 +1344,7 @@ class UserController extends BaseController
         return $this->echoJson($response, $res);
     }
 	
-	public function updateHide($request, $response, $args)
-    {
+	public function updateHide($request, $response, $args){
         $hide = $request->getParam('hide');
         $user = $this->user;
         $user->is_hide = $hide;
@@ -1381,8 +1355,7 @@ class UserController extends BaseController
         return $this->echoJson($response, $res);
     }
 	
-	public function Unblock($request, $response, $args)
-    {
+	public function Unblock($request, $response, $args){
         $user = $this->user;
 		$BIP = BlockIp::where("ip",$_SERVER["REMOTE_ADDR"])->first();
         if ($BIP == NULL) {
@@ -1422,8 +1395,7 @@ class UserController extends BaseController
         return $this->view()->assign('shops',$shops)->display('user/shop.tpl');
     }
 	
-	public function CouponCheck($request, $response, $args)
-    {
+	public function CouponCheck($request, $response, $args){
         $coupon = $request->getParam('coupon');
         $shop = $request->getParam('shop');
 		
@@ -1469,8 +1441,7 @@ class UserController extends BaseController
 		return $response->getBody()->write(json_encode($res));
     }
 	
-	public function buy($request, $response, $args)
-    {
+	public function buy($request, $response, $args){
         $coupon = $request->getParam('coupon');
 		$code = $coupon;
         $shop = $request->getParam('shop');
@@ -1781,8 +1752,7 @@ class UserController extends BaseController
     }
 	
 	
-	public function updateWechat($request, $response, $args)
-    {
+	public function updateWechat($request, $response, $args){
 		$type = $request->getParam('imtype');
         $wechat = $request->getParam('wechat');
         
@@ -1812,8 +1782,7 @@ class UserController extends BaseController
     }
 	
 	
-	public function updateRss($request, $response, $args)
-    {
+	public function updateRss($request, $response, $args){
 		$protocol = $request->getParam('protocol');
 		$obfs = $request->getParam('obfs');
         
@@ -1848,8 +1817,7 @@ class UserController extends BaseController
         return $this->echoJson($response, $res);
     }
 	
-	public function updateTheme($request, $response, $args)
-    {
+	public function updateTheme($request, $response, $args){
         $theme = $request->getParam('theme');
         
         $user = $this->user;
@@ -1870,8 +1838,7 @@ class UserController extends BaseController
     }
 	
 	
-	public function updateMail($request, $response, $args)
-    {
+	public function updateMail($request, $response, $args){
         $mail = $request->getParam('mail');
         
         $user = $this->user;
@@ -1891,8 +1858,7 @@ class UserController extends BaseController
         return $this->echoJson($response, $res);
     }
 	
-	public function PacSet($request, $response, $args)
-    {
+	public function PacSet($request, $response, $args){
         $pac = $request->getParam('pac');
         
         $user = $this->user;
@@ -1913,8 +1879,7 @@ class UserController extends BaseController
     }
 
 
-    public function updateSsPwd($request, $response, $args)
-    {
+    public function updateSsPwd($request, $response, $args){
         $user = Auth::getUser();
         $pwd = $request->getParam('sspwd');
         
@@ -1942,8 +1907,7 @@ class UserController extends BaseController
         return $this->echoJson($response, $res);
     }
 
-    public function updateMethod($request, $response, $args)
-    {
+    public function updateMethod($request, $response, $args){
         $user = Auth::getUser();
         $method = $request->getParam('method');
         $method = strtolower($method);
@@ -1965,15 +1929,13 @@ class UserController extends BaseController
         return $this->echoJson($response, $res);
     }
 
-    public function logout($request, $response, $args)
-    {
+    public function logout($request, $response, $args){
         Auth::logout();
         $newResponse = $response->withStatus(302)->withHeader('Location', '/auth/login');
         return $newResponse;
     }
 
-    public function doCheckIn($request, $response, $args)
-    {
+    public function doCheckIn($request, $response, $args){
 		if(Config::get('enable_geetest_checkin') == 'true')
 		{
 			$ret = Geetest::verify($request->getParam('geetest_challenge'),$request->getParam('geetest_validate'),$request->getParam('geetest_seccode'));
@@ -1998,13 +1960,11 @@ class UserController extends BaseController
         return $this->echoJson($response, $res);
     }
 
-    public function kill($request, $response, $args)
-    {
+    public function kill($request, $response, $args){
         return $this->view()->display('user/kill.tpl');
     }
 
-    public function handleKill($request, $response, $args)
-    {
+    public function handleKill($request, $response, $args){
         $user = Auth::getUser();
 		
 		$email=$user->email;

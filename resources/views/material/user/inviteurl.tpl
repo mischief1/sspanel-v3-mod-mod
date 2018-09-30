@@ -1,27 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {include file='user/main.tpl'}
-
-
-
-
-
-
-
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
@@ -38,10 +15,8 @@
 								<div class="card-inner">
 									<div class="card-inner">
 										<p class="card-heading">邀请规则</p>
-
-										<p>当有人使用你的邀请链接注册成功的时候，他每次购买套餐都会为你续上该套餐<code>{$config["invite_back"]} %</code>的时间和流量，上不封顶，且续费同样生效</p>
-
-										<p>比如你邀请的人购买了年费套餐，则你的使用时间将续上<code>{365*(int)$config["invite_back"]/100*} %</code>天，流量增加以此类推</p>
+										<p>当有人使用你的邀请链接注册成功的时候，他每次购买套餐都会为你续上该套餐<code>{$invite_back} %</code>的时间和流量，上不封顶，且续费同样生效</p>
+										<p>比如你邀请的人购买了年费套餐，则你的使用时间将续上<code>{365*(int){$invite_back}/100}</code>天，流量增加以此类推</p>
 									</div>
 									
 								</div>
@@ -107,21 +82,11 @@
 							</div>
 						</div>
 					</div>
-					
-					
-					
 					{include file='dialog.tpl'}
 				</div>
 			</section>
 		</div>
 	</main>
-
-
-
-
-
-
-
 {include file='user/footer.tpl'}
 
 

@@ -70,8 +70,12 @@ $System_Config['aws_secret_access_key'] = '';
 
 
 #Makise's Extra
-$System_Config['invite_url'] = 'false';  //使用url的方式邀请注册,这个邀请方式和邀请码方式冲突,如果使用请关闭enable_invite_code
-$System_Config['invite_back'] = '10';  //返利比例,10为每次被邀请用户购买套餐后，邀请者可以获得10%的流量，以及10%的套餐时长
+//使用url的方式邀请注册,这个邀请方式和邀请码方式冲突,如果使用请关闭enable_invite_code
+$System_Config['invite_url'] = 'false';  
+//返利比例,10为每次被邀请用户购买套餐后，邀请者可以获得10%的流量，以及10%的套餐时长
+$System_Config['invite_back'] = '10';  
+//使用xpay进行支付，详情请了解下http://xpay.exrick.cn/index
+$System_Config['xpay_enable'] = 'false';  
 //todo, 有空会尽量完成
 $System_Config['open_conpen'] = 'false'; // 是否开启公共优惠码
 $System_Config['usefull_url'] = 'false';  //是否开启常用站点导航功能
@@ -237,7 +241,7 @@ $System_Config['enable_account_expire_reset']='true';
 $System_Config['enable_account_expire_reset_traffic']='0';
 
 #购买时是否重置流量
-$System_Config['enable_bought_reset']='true';
+$System_Config['enable_bought_reset']='false';
 
 #账户到期之后是否会删除账户
 $System_Config['enable_account_expire_delete']='true';
